@@ -41,11 +41,8 @@ distPointsAux (x1:xs1) (x2:xs2) = (x1 - x2) * (x1 - x2) + distPointsAux xs1 xs2
 montaGrupos :: Double -> [Ponto] -> [[Ponto]]
 montaGrupos dist [] = []
 montaGrupos dist (xs:xss) = grupo : montaGrupos dist [as | as <- xss, distPoints xs as > dist]
-                            where
-                                grupo = xs : [as | as <- xss, (distPoints xs as) <= dist]
--- montaGrupos dist ps = grupo : montaGrupos dist resto
---                             where
---                                 (grupo:resto) = partition ((distPoints xs as) <= dist) ps
+    where
+        grupo = xs : [as | as <- xss, (distPoints xs as) <= dist]
 
 -- Funcão que cria a String para impressão no arquivo saida.txt
 -- parâmetros: a lista de grupos.
@@ -70,10 +67,12 @@ centroMassaAux ((Ponto i xs):ps) = zipWith (+) xs $ centroMassaAux ps
 -- Parâmetros: a lista de grupos.
 sse :: [[Ponto]] -> Double
 sse [] = 0
-sse (g:gs) = (sseAux g) + (sse gs)
+sse (g:gs) = (sseAux g cm) + (sse gs)
+    where
+        cm = centroMassa g
 
-sseAux :: [Ponto] -> Double
-sseAux [] = 0
-sseAux (p:ps) = (d^2) + sseAux ps
-           where
-            d = distPoints p $ centroMassa $ p:ps
+sseAux :: [Ponto] -> Ponto -> Double
+sseAux [] cm = 0
+sseAux (p:ps) cm = (d * d) + sseAux ps cm
+    where
+        d = distPoints p cm
