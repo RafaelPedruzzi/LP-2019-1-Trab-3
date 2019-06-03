@@ -5,7 +5,7 @@
 --
 -- main.hs: módulo main
 
-import System.IO
+-- import System.IO
 import Data.Char
 import Text.Printf
 import Numeric
@@ -25,10 +25,11 @@ show4Decimals x = showFFloat (Just 4) x ""
 
 -- Função main. Ponto de partida do programa:
 main = do
-    entrada <- readFile "entrada.txt" -- Abrindo arquivo entrada.txt
-    dist <- readFile "distancia.txt" -- Abrindo arquivo distancia.txt
-    --   putStrLn $ show $ montaPontos $ map converteSF $ map words $ lines entrada
-    --   putStrLn $ show $ montaGrupos (leiaDouble dist) $ montaPontos $ map converteSF $ map words $ lines entrada
-    let gss = montaGrupos (leiaDouble dist) $ montaPontos $ map converteSF $ map words $ lines entrada
-    writeFile "saida.txt" $ gsString gss
-    --putStrLn $ show $ map show4Decimals $ map leiaDouble $ words entrada
+        entrada <- readFile "entrada.txt" -- Abrindo arquivo entrada.txt
+        dist <- readFile "distancia.txt" -- Abrindo arquivo distancia.txt
+        --   putStrLn $ show $ montaPontos $ map converteSF $ map words $ lines entrada
+        --   putStrLn $ show $ montaGrupos (leiaDouble dist) $ montaPontos $ map converteSF $ map words $ lines entrada
+        let gs = montaGrupos (leiaDouble dist) $ montaPontos $ map converteSF $ map words $ lines entrada
+        writeFile "saida.txt" $ gsString gs
+        writeFile "result.txt" $ show4Decimals $ sse gs
+        --putStrLn $ show $ map show4Decimals $ map leiaDouble $ words entrada
