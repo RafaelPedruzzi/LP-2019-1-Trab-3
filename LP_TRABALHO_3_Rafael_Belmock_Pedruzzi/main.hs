@@ -5,7 +5,6 @@
 --
 -- main.hs: módulo main
 
--- import System.IO
 import Data.Char
 import Text.Printf
 import Numeric
@@ -27,10 +26,7 @@ show4Decimals x = showFFloat (Just 4) x ""
 main = do
     entrada <- readFile "entrada.txt" -- Abrindo arquivo entrada.txt
     dist <- readFile "distancia.txt" -- Abrindo arquivo distancia.txt
-    --   putStrLn $ show $ montaPontos $ map converteSF $ map words $ lines entrada
-    --   putStrLn $ show $ montaGrupos (leiaDouble dist) $ montaPontos $ map converteSF $ map words $ lines entrada
+    -- Realizando o agrupamento:
     let gs = montaGrupos (leiaDouble dist) $ montaPontos $ map converteSF $ map words $ lines entrada
-    putStrLn $ show $ centroMassa $ head gs
-    writeFile "saida.txt" $ gsString gs
-    writeFile "result.txt" $ show4Decimals $ sse gs
-    --putStrLn $ show $ map show4Decimals $ map leiaDouble $ words entrada
+    writeFile "saida.txt" $ gsString gs -- Imprimindo os grupos em saida.txt
+    writeFile "result.txt" $ show4Decimals $ sse gs -- Calculando e imprimindo o resultado da sse em result.txt
